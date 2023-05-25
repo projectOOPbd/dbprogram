@@ -5,10 +5,13 @@
 #include <QString>
 #include <QDebug>
 #include <QMessageBox>
+#include "databaseserver.h"
 
 namespace Ui {
 class password;
 }
+
+class DatabaseServer;
 
 class password : public QDialog
 {
@@ -25,6 +28,7 @@ private slots:
 
 private:
     Ui::password *ui;
+    DatabaseServer mDbConnection;
 };
 
 #endif // PASSWORD_H

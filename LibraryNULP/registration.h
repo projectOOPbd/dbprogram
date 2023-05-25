@@ -5,10 +5,15 @@
 #include <QRegularExpression>
 #include <QString>
 #include <QMessageBox>
+#include "databaseserver.h"
+#include <QSqlQueryModel>
+
 namespace Ui {
 class registration;
 }
 
+class DatabaseServer;
+class QSqlQueryModel;
 class registration : public QDialog
 {
     Q_OBJECT
@@ -26,6 +31,8 @@ private slots:
 
 private:
     Ui::registration *ui;
+    DatabaseServer mDbConnection;
+    QSqlQueryModel *mModel;
 };
 
 

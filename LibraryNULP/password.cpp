@@ -2,10 +2,16 @@
 #include "ui_password.h"
 #include "mainwindow.h"
 #include "database.h"
+#include "databaseserver.h"
 
 password::password(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::password)
+    ui(new Ui::password),mDbConnection("DESKTOP-KTTQUC7",
+                                       "SQL SERVER",
+                                       "sa",
+                                       "fZYuM?=B9<zY5xF",
+                                       "libraryNULP",
+                                       true)
 {
     ui->setupUi(this);
 }
@@ -24,9 +30,15 @@ void password::on_pushButton_2_clicked()
 void password::on_pushButton_clicked()
 {
     QString login,password;
+    QString error = "База не підключена";
     login = ui->login->text();
     password = ui->password_2->text();
-    if(login == "oleksandr.babiuk@gmail.com" && password == "standardsseem")
+    if(!mDbConnection.openDataBase(&error))
+    {
+        QMessageBox::critical(this,"error",error);
+        return;
+    }
+    if(login == "1" && password == "0")
     {
         QMessageBox::information(this,"Ура","Ви успішно авторизувалися");
         hide();
@@ -38,5 +50,6 @@ void password::on_pushButton_clicked()
     {
         QMessageBox::warning(this,":(","Ви не змоглив авторизуватися провірьте логін або пароль");
     }
+
 }
 

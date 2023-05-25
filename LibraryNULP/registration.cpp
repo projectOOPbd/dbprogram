@@ -3,7 +3,12 @@
 
 registration::registration(QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::registration)
+    ui(new Ui::registration),mDbConnection("DESKTOP-KTTQUC7",
+                                           "SQL SERVER",
+                                           "sa",
+                                           "fZYuM?=B9<zY5xF",
+                                           "libraryNULP",
+                                           true)
 {
     ui->setupUi(this);
 }
@@ -35,32 +40,38 @@ void ComparePasswords(QString password,QString passwordConfirm)
         throw std::runtime_error("паролі не сходяться");
     }
 }
-/*void checkInput(const QLineEdit* lineEdit)
-{
-    if (lineEdit->text().isEmpty())
-    {
-        ui->lineEdit->setText("Заповніть поле");
-    }
-    lineEdit
-}*/
 void registration::on_next_clicked()
 {
     QString name,surname,nameMail,password,passwordConfim;
+    QString error = "База не підключена";
     name = ui->name->text();
     surname = ui->surname->text();
     nameMail = ui->nameMail->text();
     password = ui->password->text();
     passwordConfim = ui->passportConfirm->text();
+
+    if(!mDbConnection.openDataBase(&error))
+    {
+        QMessageBox::critical(this,"error",error);
+        return;
+    }
+    mModel = nullptr;
     try
     {
         CheckPasswordStrength(password);
         ComparePasswords(password,passwordConfim);
+        if(mModel == nullptr)
+        {
+            mModel = new QSqlQueryModel(this);
+            mModel->setQuery("INSERT INTO users(name, surname, login, password)"
+                             "VALUES ('"+name+"','"+surname+"','"+nameMail+"','"+password+"');");
+        }
+        hide();
+        QMessageBox::about(this,"Текст","Вас успішно додано приємного користування");
     }catch(const std::exception& e)
     {
         QMessageBox::critical(this,"Помилка",e.what());
     }
-    hide();
-    QMessageBox::about(this,"Текс","Вас успішно додано приємного користування");
 }
 
 
