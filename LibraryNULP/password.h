@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include "databaseserver.h"
-
+#include "basadata.h"
 namespace Ui {
 class password;
 }

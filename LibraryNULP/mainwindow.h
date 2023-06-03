@@ -2,12 +2,14 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "databaseserver.h"
+#include <QThread>
+#include <QTimer>
+#include <QScreen>
+#include "incoming.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class MainWindow;}
 QT_END_NAMESPACE
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -17,14 +19,9 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_2_clicked();
-
-    void on_pushButton_clicked();
-
-    void on_pushButton_3_clicked();
+    void updateProgress();
 
 private:
     Ui::MainWindow *ui;
-
 };
 #endif // MAINWINDOW_H

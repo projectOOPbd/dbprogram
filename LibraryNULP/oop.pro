@@ -9,29 +9,38 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    adddataindatabase.cpp \
-    database.cpp \
-    databaseserver.cpp \
     main.cpp \
-    mainwindow.cpp \
+    mainwindow.cpp\
+    incoming.cpp \
+    style.cpp\
+    adddataindatabase.cpp \
+    basadata.cpp \
+    databaseserver.cpp \
+    deletedata.cpp \
     password.cpp \
     registration.cpp
 
 HEADERS += \
+    mainwindow.h\
+    incoming.h \
+    style.h\
     adddataindatabase.h \
-    database.h \
+    basadata.h \
     databaseserver.h \
-    mainwindow.h \
+    deletedata.h \
     password.h \
     registration.h
 
 FORMS += \
+    mainwindow.ui\
+    incoming.ui\
     adddataindatabase.ui \
-    database.ui \
-    mainwindow.ui \
+    basadata.ui \
+    deletedata.ui \
     password.ui \
     registration.ui
-
+RESOURCES += \
+    resources.qrc
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

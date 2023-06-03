@@ -46,10 +46,9 @@ void registration::on_next_clicked()
     QString error = "База не підключена";
     name = ui->name->text();
     surname = ui->surname->text();
-    nameMail = ui->nameMail->text();
+    nameMail = ui->nameMail->text()+"@gmail.com";
     password = ui->password->text();
     passwordConfim = ui->passportConfirm->text();
-
     if(!mDbConnection.openDataBase(&error))
     {
         QMessageBox::critical(this,"error",error);
@@ -63,8 +62,7 @@ void registration::on_next_clicked()
         if(mModel == nullptr)
         {
             mModel = new QSqlQueryModel(this);
-            mModel->setQuery("INSERT INTO users(name, surname, login, password)"
-                             "VALUES ('"+name+"','"+surname+"','"+nameMail+"','"+password+"');");
+            mModel->setQuery("INSERT INTO users(name, surname, login, password) VALUES ('"+name+"','"+surname+"','"+nameMail+"','"+password+"');");
         }
         hide();
         QMessageBox::about(this,"Текст","Вас успішно додано приємного користування");

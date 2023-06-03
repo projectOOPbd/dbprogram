@@ -1,7 +1,6 @@
 #include "password.h"
 #include "ui_password.h"
 #include "mainwindow.h"
-#include "database.h"
 #include "databaseserver.h"
 
 password::password(QWidget *parent) :
@@ -37,19 +36,23 @@ void password::on_pushButton_clicked()
     {
         QMessageBox::critical(this,"error",error);
         return;
-    }
-    if(login == "1" && password == "0")
+    }  
+    QSqlQuery query;
+    query.prepare("SELECT * FROM users WHERE login = :login AND password = :password");
+    query.bindValue(":login", login);
+    query.bindValue(":password", password);
+
+    if (query.exec() && query.next())
     {
-        QMessageBox::information(this,"Ура","Ви успішно авторизувалися");
+        QMessageBox::about(this,"ура","ви успішно авторизувалися");
+        basadata basa;
+        basa.setModal(true);
+        basa.exec();
         hide();
-        database data;
-        data.setModal(true);
-        data.exec();
     }
     else
     {
-        QMessageBox::warning(this,":(","Ви не змоглив авторизуватися провірьте логін або пароль");
+        QMessageBox::critical(this,":(","ви не змогли зайти");
     }
-
 }
 

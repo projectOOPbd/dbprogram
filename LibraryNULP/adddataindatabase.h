@@ -5,6 +5,9 @@
 #include <QString>
 #include <QSqlQueryModel>
 #include <QMessageBox>
+#include <QFile>
+#include <QSqlQuery>
+#include <QFileDialog>
 namespace Ui {
 class addDataInDatabase;
 }
@@ -23,6 +26,8 @@ private slots:
     void on_addData_clicked();
 
     void on_pushButton_clicked();
+
+    void on_addData_2_clicked();
 
 private:
     Ui::addDataInDatabase *ui;
